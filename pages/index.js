@@ -1,5 +1,4 @@
 
-
 import Head from 'next/head'
 import Feeds from './Feeds'
 
@@ -15,6 +14,7 @@ export default function Home() {
       </Head>
       <main>
         <Feeds />
+       
       </main>
     </>
   )

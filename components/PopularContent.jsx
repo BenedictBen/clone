@@ -1,8 +1,9 @@
-import { Box, Button, Flex, Hide, chakra, Icon, Stack, Text, Show } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, GridItem,chakra, Icon, Stack, Text, Show, Spacer, Accordion, AccordionItem, AccordionButton, AccordionIcon, Center } from '@chakra-ui/react'
 import Image from 'next/image'
 import React from 'react'
-import { BsFire, BsFillHandThumbsUpFill,BsFillBarChartFill, BsThreeDots, BsBorderAll, BsFillArrowDownSquareFill,BsFillArrowUpSquareFill } from "react-icons/bs"
+import { BsFire,BsFillBarChartFill, BsThreeDots, BsBorderAll, BsBookmark,BsFillArrowUpSquareFill,BsFillPersonFill,BsReddit, BsFillChatDotsFill, BsArrow90DegRight } from "react-icons/bs"
 import { popular, posts} from "../components/data"
+import { GoArrowUp, GoArrowDown} from "react-icons/go";
 
 
 const PopularContent = () => {
@@ -10,65 +11,97 @@ const PopularContent = () => {
     shouldForwardProp: (prop) => ["width", "height", "src", "alt"].includes(prop)
   })
   return (
-    <Flex alignItems={"center"} justifyContent="center" gap={"3"} px="130px" mt="20px">
-      <Box flex="3" >
-        Popular
-        <Flex  bg="white" alignItems={"center"} justifyContent="space-between" px="12px" mb="10">
-                <Flex flexDirection={"row"} gap={"5"}>
+    <Grid templateColumns='repeat(5, fr)'   mt="20px" justifyItems="center" px={["0","28","44","20","44"]}>
+         <GridItem colSpan={3}>
+             <Box  alignItems={"center"} justifyContent="center" >
+        Popular posts
+        <Flex  bg="white" alignItems={"center"} justifyContent="space-between"  mb="10">
+                <Flex flexDirection={"row"} gap={"5"} alignItems="center" justifyContent={"center"} p="2">
 
-                 <Button size={["base","sm","md","lg"]}>
-                    <Icon as={BsFire}/>
-                    Hot
-                 </Button>
-                 <Button size={["base","sm","md","lg"]}>
-                    <Icon as={BsFillHandThumbsUpFill}/>
-                    Everywhere
-                 </Button>
-                 <Button size={["base","sm","md","lg"]}>
-                    <Icon as={BsFillBarChartFill}/>
-                    New
-                 </Button>
-                 <Button size={["base","sm","md","lg"]}> 
-                    <Icon as={BsFire}/>
-                    Top
-                 </Button>
-                 <Button size={["base","sm","md","lg"]}>
-                    <Icon as={BsThreeDots}/>
+                 <Center  color="#0079d3" fontWeight={"bold"}>
+                    <Icon as={BsFire} mr="2"/>
+                    <Text fontSize={["5","7","12"]}>Hot</Text>
+                 </Center>
+                 <Center  color="#0079d3" fontWeight={"bold"}>
+                    {/* <Icon as={BsFillHandThumbsUpFill} mr="2"/> */}
+                    <Accordion >
+                      <AccordionItem display="flex" alignItems="center">
+                       <Text fontSize={["5","7","12"]}>Everywhere</Text>  
+                        <AccordionIcon />
+                      </AccordionItem>
+                    </Accordion>
+                   
+                 </Center>
+                 <Center color="gray.500" fontWeight={"bold"}>
+                    <Icon as={BsFillBarChartFill} mr="2"/>
+                    <Text fontSize={["5","7","12"]}>New</Text>
+                    
+                 </Center>
+                 <Center color="gray.500" fontWeight={"bold"}> 
+                    <Icon as={BsReddit} mr="2"/>
+                    <Text fontSize={["5","7","12"]}>Top</Text>
+                 </Center>
+                 <Center color="gray.500">
+                    <Icon as={BsThreeDots} mr="2"/>
                   
-                 </Button>
+                 </Center>
                 </Flex>
                 <Flex flexDirection={"row"} gap={"5"}>
 
-                 <Button size={["base","sm","md","lg"]}>
+                 <Center size={["base","sm","md","lg"]} pr="1">
                     
                      <Icon as={BsBorderAll}/>
-                 </Button>
+                 </Center>
                 </Flex>
             </Flex>
             <Box>
-              <Box display={"flex"} alignItems="center" width='full'>
-                <Box w={["12rem","24rem","36rem","60rem"]}>
+              <Box display={"flex"} alignItems="center">
+                <Box w="full">
+                  {/* w={["12rem","24rem","36rem","60rem"]} */}
                   {posts.map((post) => (
-                    <Flex alignItems={"center"} gap="4" mb="6" bg="white" >
+                    <Flex alignItems={"start"} justifyContent={"start"} gap="4" mb="6" bg="white" key={post.id} direction={["column"]} px="2" py="3" >
 
-                    <Box display={"flex"} flexDirection="column">
-                      <Button  size={["base","sm","md","lg"]}>
-                            <Icon as={BsFillArrowUpSquareFill}/>
-                        </Button>
-                            <Text pl="2" fontSize={{base: "6px", sm: "8px", md: '12px', lg: '16px'}}>26.5k</Text>
-                        <Button size={["base","sm","md","lg"]}>
-                            <Icon as={BsFillArrowDownSquareFill}/>
-
-                        </Button>
+                    <Box display={"flex"} flexDirection="row" alignItems={"start"} justifyContent={"start"} gap="3" cursor="pointer">
+                      <Box display={"flex"} flexDirection="column" alignItems={"center"} gap="1">
+                            <Icon as={GoArrowUp} />          
+                            <Text pl="2" fontSize={{base: "6px", sm: "8px", md: '12px'}}>{post.number}k</Text>          
+                            <Icon as={GoArrowDown}/>
+                      </Box>
+                      <Box display={"flex"} flexDirection="row" gap="40"alignItems={"center"}>
+                        <Stack direction={"row"}>
+                          <Icon as={BsFillPersonFill}/>
+                          <Text fontSize={["5","7","5","9"]}>{post.groups}</Text>
+                          <Text fontSize={["5","7","5","9"]}> {post.by}</Text>
+                        </Stack>
+                        <Button variant={"solid"} size={["base","sm"]} bg="blue.400"  rounded={["lg","xl"]} color="white">Join</Button>
+                      </Box> 
                    </Box>
+                     
                     
                     
-                    <Box key={post.id} display="flex" direction={['column','column','row']} gap="6">
+                    <Stack margin="auto" mt={["-3","-4","-4"]}  direction={['row', 'row', 'column']}  > 
+                      <Text fontSize={["12","16","20"]}>{post.title}</Text>
+                      <Box>
+                        <OurImage src={post.image} w={["20","24","50","full"]} /> 
+                      </Box>
+                    </Stack>
+                    <Box pl="24" display='flex' gap={"5"} cursor="pointer">
+                      <Box display={"flex"} flexDirection="row" gap="1">
+                        <Icon as={BsFillChatDotsFill} boxSize={["1","3","5"]}/>
+                        <Text fontSize={{base: "6px", sm: "8px", md: '12px'}}>315 Comments</Text>
+                      </Box>
+                      <Box display={"flex"} flexDirection="row" gap="1">
+                        <Icon as={BsArrow90DegRight} boxSize={["1","3","5"]}/>
+                        <Text fontSize={{base: "6px", sm: "8px", md: '12px'}}>Share</Text>
+                      </Box>
+                      <Box display={"flex"} flexDirection="row" gap="1">
+                        <Icon as={BsBookmark} boxSize={["1","3","5"]}/>
+                        <Text fontSize={{base: "6px", sm: "8px", md: '12px'}}>Save</Text>
+                      </Box>
                       
-                      <Text>{post.title}</Text>
-                       <OurImage src={post.image} w={["32","40","50","80"]}/>
-
-                      
+                      <Box>
+                      <Icon as={BsThreeDots}  boxSize={["1","3","5"]}/>
+                      </Box>
                       
                     </Box>
                     </Flex>
@@ -79,34 +112,54 @@ const PopularContent = () => {
               
             </Box>
       </Box>
-      <Box flex="1" mt="-141rem">
-      <Show above="md" >
+         </GridItem>
+         <GridItem colStart={5} mt="1.5rem">
+       
+        <Show above="lg">
         <Stack  bg="white">
                   {popular.map((pop) => (
-                            <Box as="span"  textAlign='left' display={"flex"} flexDirection="column" >
-                                <Text size={["base", "sm", "md","lg"]}>{pop.title}</Text>
-                            </Box>
-                             ))}
+                    <>
+
+
+    <Accordion  >
+    <AccordionItem>
+    <h2>
+      <AccordionButton>
+        <Box as="span" textAlign='left' flex='1' display={"flex"} flexDirection="column" >
+         <Text fontSize={["9"]} fontWeight="bold">{pop.title}</Text>
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+  </AccordionItem>
+
+</Accordion>
+</>
+            ))}
             </Stack>
+
+
             <Box bg="white" mt="3" >
-              <Flex gap={"2"}>
+              <Flex gap={"2"} p="2">
                 <Box>
-                <Text>User Agreement</Text>
-                <Text>Privacy Policy</Text>
+                <Text fontSize={["12"]}>User Agreement</Text>
+                <Text fontSize={["12"]}>Privacy Policy</Text>
 
                 </Box>
                 <Box>
-                <Text>Content Policy</Text>
-                <Text>
+                <Text fontSize={["12"]}>Content Policy</Text>
+                <Text fontSize={["12"]}>
                     Moderator Code Of Conduct
                     </Text>
 
                 </Box>
               </Flex>
             </Box>
-      </Show>
-      </Box> 
-    </Flex>
+        </Show>
+
+    
+         </GridItem>
+        </Grid>
   )
 }
 

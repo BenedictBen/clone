@@ -14,10 +14,14 @@ const Trending = () => {
             {trending?.map((trend) => (
               <Box key={trend.id} position="relative">
                 {/* <Image src={trend.image} width='20px'/> */}
-                <OurImage src={trend.image} width="260px" rounded="lg"/>
+                <OurImage src={trend.image} width={{lg:"220px",xl:"260px"}} rounded="lg"/>
                 <Box position="absolute" top="12" color="white"px="12px" >
                   <Text fontWeight="bold">{trend.title}</Text>
                   <Text>{trend.sub}</Text>
+                  <Flex gap={1} >
+                    <OurImage src={trend.user} width={{lg:"15px"}}/>
+                    <Text>r/worldnews and more</Text>
+                  </Flex>
                 </Box>
               </Box>
             ))}
